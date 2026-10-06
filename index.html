@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Villa Soléa Hotel & Villas</title>
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        'Georgia',
+        'Times New Roman',
+        serif;
+
+    background: #eee5d2;
+    color: #4a3824;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SLIDES
+===================================================== */
+
+.slide {
+
+    position: absolute;
+
+    inset: 0;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    transform: translateX(100%);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+
+    pointer-events: none;
+
+    overflow-y: auto;
+}
+
+.slide.active {
+
+    opacity: 1;
+
+    transform: translateX(0);
+
+    pointer-events: auto;
+}
+
+.slide.old {
+
+    transform: translateX(-100%);
+
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.logo-img {
+
+    width: 160px;
+
+    height: auto;
+
+    margin: 0 auto 10px;
+
+    display: block;
+}
+
+.logo h1 {
+
+    margin: 8px 0 3px;
+
+    letter-spacing: 5px;
+
+    font-size: 26px;
+
+    font-weight: 600;
+
+    color: #2c3e2f;
+}
+
+.logo p {
+
+    margin: 0;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    color: #8d6738;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    width: min(420px, 95%);
+
+    background:
+        rgba(255,255,255,0.45);
+
+    border:
+        1px solid #c8b28d;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(72,50,25,0.12);
+}
+
+
+/* =====================================================
+   MAIN BUTTON
+===================================================== */
+
+.main-button {
+
+    margin-top: 25px;
+
+    width: 100%;
+
+    max-width: 350px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #8d6738;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.main-button:active {
+
+    transform: scale(0.96);
+}
+
+
+/* =====================================================
+   SLIDE 4 — CONNECTION
+===================================================== */
+
+.connection-box {
+
+    text-align: center;
+}
+
+.connection-icon {
+
+    width: 100px;
+    height: 100px;
+
+    margin: 0 auto 25px;
+
+    border:
+        4px solid #b18a52;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 42px;
+
+    animation:
+        connectionPulse 1.5s infinite;
+}
+
+@keyframes connectionPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(177,138,82,0.5);
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 25px
+            rgba(177,138,82,0);
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0
+            rgba(177,138,82,0);
+    }
+}
+
+.connection-status {
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.connection-dots::after {
+
+    content: "";
+
+    animation:
+        dots 1.5s infinite;
+}
+
+@keyframes dots {
+
+    0% {
+        content: "";
+    }
+
+    33% {
+        content: ".";
+    }
+
+    66% {
+        content: "..";
+    }
+
+    100% {
+        content: "...";
+    }
+}
+
+.connected {
+
+    color: #668c4b;
+}
+
+
+/* =====================================================
+   LIGHTS TITLE
+===================================================== */
+
+.lights-title {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.lights-title h2 {
+
+    margin: 0;
+
+    letter-spacing: 4px;
+}
+
+.lights-title p {
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+    opacity: 0.7;
+}
+
+
+/* =====================================================
+   ROOM PREVIEW
+===================================================== */
+
+.preview {
+
+    width: min(420px, 95%);
+
+    margin-bottom: 10px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+.room {
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,0.4);
+
+    border:
+        1px solid #cbb58f;
+
+    border-radius: 14px;
+
+    padding: 12px;
+
+    transition: 0.3s;
+}
+
+.room h3 {
+
+    margin: 5px 0;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   ROOM LIGHT
+===================================================== */
+
+.room-light {
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background: #cfc6b4;
+
+    margin: 8px auto;
+
+    transition:
+        background 0.5s,
+        box-shadow 0.5s,
+        transform 0.5s;
+}
+
+.room-light.glowing {
+
+    background: #fff3ad;
+
+    transform:
+        scale(1.08);
+
+    box-shadow:
+
+        0 0 15px #ffe47a,
+
+        0 0 35px #ffd84d,
+
+        0 0 70px
+        rgba(255,210,60,0.7);
+}
+
+
+/* =====================================================
+   LIGHT CARD
+===================================================== */
+
+.light-card {
+
+    width: min(420px, 95%);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 17px;
+
+    margin: 5px 0;
+
+    background:
+        rgba(255,255,255,0.55);
+
+    border:
+        1px solid #cbb58f;
+
+    border-radius: 14px;
+
+    transition: 0.3s;
+}
+
+.light-name {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-weight: bold;
+}
+
+.light-icon {
+
+    font-size: 25px;
+}
+
+
+/* =====================================================
+   SWITCH
+===================================================== */
+
+.switch {
+
+    width: 58px;
+    height: 31px;
+
+    background: #aaa;
+
+    border-radius: 30px;
+
+    padding: 3px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.switch-knob {
+
+    width: 25px;
+    height: 25px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0,0,0,0.25);
+}
+
+.switch.on {
+
+    background: #c39445;
+}
+
+.switch.on .switch-knob {
+
+    transform:
+        translateX(27px);
+}
+
+
+/* =====================================================
+   SMART CONTROL
+===================================================== */
+
+.control-card {
+
+    width: min(420px, 95%);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 13px 15px;
+
+    margin: 5px 0;
+
+    background:
+        rgba(255,255,255,0.55);
+
+    border:
+        1px solid #cbb58f;
+
+    border-radius: 14px;
+
+    transition: 0.3s;
+}
+
+.control-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.control-info b {
+
+    display: block;
+
+    font-size: 12px;
+}
+
+.control-info small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    opacity: 0.65;
+}
+
+.control-icon {
+
+    font-size: 25px;
+}
+
+.control-right {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 7px;
+}
+
+
+/* =====================================================
+   TEMPERATURE
+===================================================== */
+
+.temperature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.temperature button {
+
+    width: 27px;
+    height: 27px;
+
+    border:
+        1px solid #c8b28d;
+
+    border-radius: 7px;
+
+    background: #fffaf0;
+
+    color: #4a3824;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.temperature span {
+
+    min-width: 45px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   ACTION BUTTON
+===================================================== */
+
+.action-button {
+
+    min-width: 80px;
+
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #8d6738;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.action-button:active {
+
+    transform:
+        scale(0.94);
+}
+
+
+/* =====================================================
+   ACTIVE DEVICE
+===================================================== */
+
+.control-card.active-device {
+
+    box-shadow:
+
+        0 0 12px
+        rgba(195,148,69,0.35);
+}
+
+.control-card.active-device small {
+
+    color: #668c4b;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   DEVICE STATUS
+===================================================== */
+
+.status-on {
+
+    color: #668c4b !important;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:500px) {
+
+    .slide {
+
+        padding: 18px;
+    }
+
+    .logo-img {
+
+        width: 130px;
+    }
+
+    .logo h1 {
+
+        font-size: 21px;
+    }
+
+    .card {
+
+        padding: 20px;
+    }
+
+    .light-card,
+    .control-card {
+
+        width: 100%;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SLIDE 1 — WELCOME
+===================================================== -->
+
+<section
+    class="slide active"
+    id="slide1"
+>
+
+    <div class="logo">
+
+        <img
+            src="logo.png"
+            alt="Villa Soléa Hotel & Villas"
+            class="logo-img"
+        >
+
+        <h1>
+            VILLA SOLÉA
+        </h1>
+
+        <p>
+            HOTEL & VILLAS
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Welcome
+        </h2>
+
+        <p>
+            Welcome to Villa Soléa.
+        </p>
+
+        <button
+            class="main-button"
+            onclick="nextSlide()"
+        >
+            START
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 2 — GUEST NUMBER
+===================================================== -->
+
+<section
+    class="slide"
+    id="slide2"
+>
+
+    <div class="logo">
+
+        <img
+            src="logo.png"
+            alt="Villa Soléa Hotel & Villas"
+            class="logo-img"
+        >
+
+        <h1>
+            VILLA SOLÉA
+        </h1>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            GUEST NUMBER
+        </h2>
+
+        <p>
+            Enter your guest number to continue.
+        </p>
+
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Number"
+
+            style="
+                width:100%;
+                padding:14px;
+                border-radius:10px;
+                border:1px solid #c8b28d;
+                background:#fffaf0;
+                margin-top:10px;
+                font-family:Georgia;
+            "
+        >
+
+
+        <button
+            class="main-button"
+            onclick="nextSlide()"
+        >
+            CONTINUE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 3 — ROOM STATUS
+===================================================== -->
+
+<section
+    class="slide"
+    id="slide3"
+>
+
+    <div class="logo">
+
+        <img
+            src="logo.png"
+            alt="Villa Soléa Hotel & Villas"
+            class="logo-img"
+        >
+
+        <h1>
+            ROOM STATUS
+        </h1>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Villa Soléa
+        </h3>
+
+        <p>
+            Checking rooms and smart-home devices...
+        </p>
+
+
+        <button
+            class="main-button"
+            onclick="nextSlide()"
+        >
+            CONTINUE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 4 — CONNECTION
+===================================================== -->
+
+<section
+    class="slide"
+    id="slide4"
+>
+
+    <div class="connection-box">
+
+        <div
+            class="connection-icon"
+            id="connectionIcon"
+        >
+            📡
+        </div>
+
+
+        <div
+            class="connection-status"
+            id="connectionStatus"
+        >
+            Connecting<span
+                class="connection-dots"
+            ></span>
+        </div>
+
+
+        <p id="connectionText">
+            Connecting to Villa Soléa system
+        </p>
+
+
+        <button
+            class="main-button"
+            id="connectionButton"
+            style="display:none;"
+            onclick="nextSlide()"
+        >
+            CONTINUE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 5 — LIGHTS
+===================================================== -->
+
+<section
+    class="slide"
+    id="slide5"
+>
+
+    <div class="lights-title">
+
+        <h2>
+            LIGHTS
+        </h2>
+
+        <p>
+            Control the lights in each room
+        </p>
+
+    </div>
+
+
+    <!-- ROOM PREVIEW -->
+
+    <div class="preview">
+
+
+        <!-- BEDROOM -->
+
+        <div class="room">
+
+            <div
+                class="room-light"
+                id="bedroomLight"
+            ></div>
+
+            <h3>
+                BEDROOM
+            </h3>
+
+        </div>
+
+
+        <!-- LIVING -->
+
+        <div class="room">
+
+            <div
+                class="room-light"
+                id="livingLight"
+            ></div>
+
+            <h3>
+                LIVING ROOM
+            </h3>
+
+        </div>
+
+
+        <!-- DINING -->
+
+        <div class="room">
+
+            <div
+                class="room-light"
+                id="diningLight"
+            ></div>
+
+            <h3>
+                DINING ROOM
+            </h3>
+
+        </div>
+
+
+        <!-- BATHROOM -->
+
+        <div class="room">
+
+            <div
+                class="room-light"
+                id="bathroomLight"
+            ></div>
+
+            <h3>
+                BATHROOM
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <!-- BEDROOM -->
+
+    <div class="light-card">
+
+        <div class="light-name">
+
+            <span class="light-icon">
+                🛏️
+            </span>
+
+            BEDROOM
+
+        </div>
+
+
+        <div
+            class="switch"
+            id="bedroomSwitch"
+            onclick="toggleLight('bedroom')"
+        >
+
+            <div
+                class="switch-knob"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LIVING -->
+
+    <div class="light-card">
+
+        <div class="light-name">
+
+            <span class="light-icon">
+                🛋️
+            </span>
+
+            LIVING ROOM
+
+        </div>
+
+
+        <div
+            class="switch"
+            id="livingSwitch"
+            onclick="toggleLight('living')"
+        >
+
+            <div
+                class="switch-knob"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DINING -->
+
+    <div class="light-card">
+
+        <div class="light-name">
+
+            <span class="light-icon">
+                🍽️
+            </span>
+
+            DINING ROOM
+
+        </div>
+
+
+        <div
+            class="switch"
+            id="diningSwitch"
+            onclick="toggleLight('dining')"
+        >
+
+            <div
+                class="switch-knob"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BATHROOM -->
+
+    <div class="light-card">
+
+        <div class="light-name">
+
+            <span class="light-icon">
+                🚿
+            </span>
+
+            BATHROOM
+
+        </div>
+
+
+        <div
+            class="switch"
+            id="bathroomSwitch"
+            onclick="toggleLight('bathroom')"
+        >
+
+            <div
+                class="switch-knob"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- NEXT -->
+
+    <button
+        class="main-button"
+        onclick="nextSlide()"
+    >
+        SMART CONTROL
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 6 — SMART CONTROL
+===================================================== -->
+
+<section
+    class="slide"
+    id="slide6"
+>
+
+    <div class="lights-title">
+
+        <h2>
+            SMART CONTROL
+        </h2>
+
+        <p>
+            Control Villa Soléa devices
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         AIR CONDITIONER
+    ================================================== -->
+
+    <div class="control-card">
+
+        <div class="control-info">
+
+            <span class="control-icon">
+                ❄️
+            </span>
+
+
+            <div>
+
+                <b>
+                    AIR CONDITIONER
+                </b>
+
+                <small id="airconStatus">
+                    OFF
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="control-right">
+
+
+            <div
+                class="switch"
+                id="airconSwitch"
+                onclick="toggleDevice('aircon')"
+            >
+
+                <div
+                    class="switch-knob"
+                ></div>
+
+            </div>
+
+
+            <div class="temperature">
+
+                <button
+                    onclick="changeTemp('aircon', -1)"
+                >
+                    −
+                </button>
+
+
+                <span id="airconTemp">
+                    24°C
+                </span>
+
+
+                <button
+                    onclick="changeTemp('aircon', 1)"
+                >
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SHOWER
+    ================================================== -->
+
+    <div class="control-card">
+
+        <div class="control-info">
+
+            <span class="control-icon">
+                🚿
+            </span>
+
+
+            <div>
+
+                <b>
+                    SHOWER
+                </b>
+
+                <small id="showerStatus">
+                    OFF
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="control-right">
+
+
+            <div
+                class="switch"
+                id="showerSwitch"
+                onclick="toggleDevice('shower')"
+            >
+
+                <div
+                    class="switch-knob"
+                ></div>
+
+            </div>
+
+
+            <div class="temperature">
+
+                <button
+                    onclick="changeTemp('shower', -1)"
+                >
+                    −
+                </button>
+
+
+                <span id="showerTemp">
+                    38°C
+                </span>
+
+
+                <button
+                    onclick="changeTemp('shower', 1)"
+                >
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         CURTAINS
+    ================================================== -->
+
+    <div class="control-card">
+
+        <div class="control-info">
+
+            <span class="control-icon">
+                🪟
+            </span>
+
+
+            <div>
+
+                <b>
+                    CURTAINS
+                </b>
+
+                <small id="curtainStatus">
+                    CLOSED
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="action-button"
+            id="curtainButton"
+            onclick="toggleCurtains()"
+        >
+            OPEN
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         TV
+    ================================================== -->
+
+    <div class="control-card">
+
+        <div class="control-info">
+
+            <span class="control-icon">
+                📺
+            </span>
+
+
+            <div>
+
+                <b>
+                    TELEVISION
+                </b>
+
+                <small id="tvStatus">
+                    OFF
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="switch"
+            id="tvSwitch"
+            onclick="toggleDevice('tv')"
+        >
+
+            <div
+                class="switch-knob"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         DOOR
+    ================================================== -->
+
+    <div class="control-card">
+
+        <div class="control-info">
+
+            <span class="control-icon">
+                🚪
+            </span>
+
+
+            <div>
+
+                <b>
+                    DOOR
+                </b>
+
+                <small id="doorStatus">
+                    LOCKED
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="action-button"
+            id="doorButton"
+            onclick="toggleDoor()"
+        >
+            UNLOCK
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         RESET
+    ================================================== -->
+
+    <button
+        class="main-button"
+        onclick="resetAll()"
+    >
+        RESET DEVICES
+    </button>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SLIDE SYSTEM
+===================================================== */
+
+let currentSlide = 1;
+
+
+function nextSlide() {
+
+    if (currentSlide >= 6) {
+
+        return;
+    }
+
+
+    const oldSlide =
+        document.getElementById(
+            "slide" + currentSlide
+        );
+
+
+    currentSlide++;
+
+
+    const newSlide =
+        document.getElementById(
+            "slide" + currentSlide
+        );
+
+
+    oldSlide.classList.remove(
+        "active"
+    );
+
+    oldSlide.classList.add(
+        "old"
+    );
+
+
+    newSlide.classList.add(
+        "active"
+    );
+
+
+    /* Start connection */
+
+    if (currentSlide === 4) {
+
+        startConnection();
+    }
+
+}
+
+
+/* =====================================================
+   CONNECTION ANIMATION
+===================================================== */
+
+function startConnection() {
+
+    const status =
+        document.getElementById(
+            "connectionStatus"
+        );
+
+
+    const text =
+        document.getElementById(
+            "connectionText"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "connectionIcon"
+        );
+
+
+    const button =
+        document.getElementById(
+            "connectionButton"
+        );
+
+
+    button.style.display =
+        "none";
+
+
+    icon.innerHTML =
+        "📡";
+
+
+    status.classList.remove(
+        "connected"
+    );
+
+
+    status.innerHTML =
+        'Connecting<span class="connection-dots"></span>';
+
+
+    text.innerHTML =
+        "Connecting to Villa Soléa system";
+
+
+    setTimeout(function() {
+
+        icon.innerHTML =
+            "✓";
+
+
+        status.classList.add(
+            "connected"
+        );
+
+
+        status.innerHTML =
+            "CONNECTED";
+
+
+        text.innerHTML =
+            "Villa Soléa system is ready";
+
+
+        button.style.display =
+            "block";
+
+
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   LIGHT SYSTEM
+===================================================== */
+
+function toggleLight(room) {
+
+    const switchElement =
+        document.getElementById(
+            room + "Switch"
+        );
+
+
+    const lightElement =
+        document.getElementById(
+            room + "Light"
+        );
+
+
+    const isOn =
+        switchElement.classList.contains(
+            "on"
+        );
+
+
+    if (isOn) {
+
+        /* OFF */
+
+        switchElement.classList.remove(
+            "on"
+        );
+
+
+        lightElement.classList.remove(
+            "glowing"
+        );
+
+    }
+
+    else {
+
+        /* ON */
+
+        switchElement.classList.add(
+            "on"
+        );
+
+
+        lightElement.classList.add(
+            "glowing"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   TEMPERATURE DATA
+===================================================== */
+
+const temperatures = {
+
+    aircon: 24,
+
+    shower: 38
+
+};
+
+
+/* =====================================================
+   SMART DEVICE ON/OFF
+===================================================== */
+
+function toggleDevice(device) {
+
+    const switchElement =
+        document.getElementById(
+            device + "Switch"
+        );
+
+
+    const statusElement =
+        document.getElementById(
+            device + "Status"
+        );
+
+
+    const card =
+        switchElement.closest(
+            ".control-card"
+        );
+
+
+    const isOn =
+        switchElement.classList.contains(
+            "on"
+        );
+
+
+    if (isOn) {
+
+        /* =====================
+           TURN OFF
+        ===================== */
+
+        switchElement.classList.remove(
+            "on"
+        );
+
+
+        statusElement.innerText =
+            "OFF";
+
+
+        card.classList.remove(
+            "active-device"
+        );
+
+    }
+
+    else {
+
+        /* =====================
+           TURN ON
+        ===================== */
+
+        switchElement.classList.add(
+            "on"
+        );
+
+
+        statusElement.innerText =
+            "ON";
+
+
+        card.classList.add(
+            "active-device"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   TEMPERATURE CONTROL
+===================================================== */
+
+function changeTemp(
+    device,
+    amount
+) {
+
+
+    /* =====================
+       AIRCON
+    ===================== */
+
+    if (device === "aircon") {
+
+        temperatures.aircon +=
+            amount;
+
+
+        /* Minimum */
+
+        if (
+            temperatures.aircon < 16
+        ) {
+
+            temperatures.aircon =
+                16;
+        }
+
+
+        /* Maximum */
+
+        if (
+            temperatures.aircon > 30
+        ) {
+
+            temperatures.aircon =
+                30;
+        }
+
+
+        document.getElementById(
+            "airconTemp"
+        ).innerText =
+            temperatures.aircon + "°C";
+
+    }
+
+
+    /* =====================
+       SHOWER
+    ===================== */
+
+    if (device === "shower") {
+
+        temperatures.shower +=
+            amount;
+
+
+        /* Minimum */
+
+        if (
+            temperatures.shower < 30
+        ) {
+
+            temperatures.shower =
+                30;
+        }
+
+
+        /* Maximum */
+
+        if (
+            temperatures.shower > 45
+        ) {
+
+            temperatures.shower =
+                45;
+        }
+
+
+        document.getElementById(
+            "showerTemp"
+        ).innerText =
+            temperatures.shower + "°C";
+
+    }
+
+}
+
+
+/* =====================================================
+   CURTAINS
+===================================================== */
+
+let curtainsOpen = false;
+
+
+function toggleCurtains() {
+
+    const status =
+        document.getElementById(
+            "curtainStatus"
+        );
+
+
+    const button =
+        document.getElementById(
+            "curtainButton"
+        );
+
+
+    const card =
+        button.closest(
+            ".control-card"
+        );
+
+
+    if (curtainsOpen) {
+
+        /* =====================
+           CLOSE
+        ===================== */
+
+        curtainsOpen =
+            false;
+
+
+        status.innerText =
+            "CLOSED";
+
+
+        button.innerText =
+            "OPEN";
+
+
+        card.classList.remove(
+            "active-device"
+        );
+
+    }
+
+    else {
+
+        /* =====================
+           OPEN
+        ===================== */
+
+        curtainsOpen =
+            true;
+
+
+        status.innerText =
+            "OPEN";
+
+
+        button.innerText =
+            "CLOSE";
+
+
+        card.classList.add(
+            "active-device"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DOOR
+===================================================== */
+
+let doorUnlocked = false;
+
+
+function toggleDoor() {
+
+    const status =
+        document.getElementById(
+            "doorStatus"
+        );
+
+
+    const button =
+        document.getElementById(
+            "doorButton"
+        );
+
+
+    const card =
+        button.closest(
+            ".control-card"
+        );
+
+
+    if (doorUnlocked) {
+
+        /* =====================
+           LOCK
+        ===================== */
+
+        doorUnlocked =
+            false;
+
+
+        status.innerText =
+            "LOCKED";
+
+
+        button.innerText =
+            "UNLOCK";
+
+
+        card.classList.remove(
+            "active-device"
+        );
+
+    }
+
+    else {
+
+        /* =====================
+           UNLOCK
+        ===================== */
+
+        doorUnlocked =
+            true;
+
+
+        status.innerText =
+            "UNLOCKED";
+
+
+        button.innerText =
+            "LOCK";
+
+
+        card.classList.add(
+            "active-device"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   RESET EVERYTHING
+===================================================== */
+
+function resetAll() {
+
+
+    /* =====================
+       LIGHTS
+    ===================== */
+
+    const lights = [
+
+        "bedroom",
+        "living",
+        "dining",
+        "bathroom"
+
+    ];
+
+
+    lights.forEach(function(room) {
+
+        document
+            .getElementById(
+                room + "Switch"
+            )
+            .classList.remove("on");
+
+
+        document
+            .getElementById(
+                room + "Light"
+            )
+            .classList.remove("glowing");
+
+    });
+
+
+    /* =====================
+       AIRCON
+    ===================== */
+
+    document
+        .getElementById(
+            "airconSwitch"
+        )
+        .classList.remove("on");
+
+
+    document
+        .getElementById(
+            "airconStatus"
+        )
+        .innerText =
+        "OFF";
+
+
+    document
+        .getElementById(
+            "airconSwitch"
+        )
+        .closest(".control-card")
+        .classList.remove(
+            "active-device"
+        );
+
+
+    temperatures.aircon =
+        24;
+
+
+    document
+        .getElementById(
+            "airconTemp"
+        )
+        .innerText =
+        "24°C";
+
+
+    /* =====================
+       SHOWER
+    ===================== */
+
+    document
+        .getElementById(
+            "showerSwitch"
+        )
+        .classList.remove("on");
+
+
+    document
+        .getElementById(
+            "showerStatus"
+        )
+        .innerText =
+        "OFF";
+
+
+    document
+        .getElementById(
+            "showerSwitch"
+        )
+        .closest(".control-card")
+        .classList.remove(
+            "active-device"
+        );
+
+
+    temperatures.shower =
+        38;
+
+
+    document
+        .getElementById(
+            "showerTemp"
+        )
+        .innerText =
+        "38°C";
+
+
+    /* =====================
+       TV
+    ===================== */
+
+    document
+        .getElementById(
+            "tvSwitch"
+        )
+        .classList.remove("on");
+
+
+    document
+        .getElementById(
+            "tvStatus"
+        )
+        .innerText =
+        "OFF";
+
+
+    document
+        .getElementById(
+            "tvSwitch"
+        )
+        .closest(".control-card")
+        .classList.remove(
+            "active-device"
+        );
+
+
+    /* =====================
+       CURTAINS
+    ===================== */
+
+    curtainsOpen =
+        false;
+
+
+    document
+        .getElementById(
+            "curtainStatus"
+        )
+        .innerText =
+        "CLOSED";
+
+
+    document
+        .getElementById(
+            "curtainButton"
+        )
+        .innerText =
+        "OPEN";
+
+
+    document
+        .getElementById(
+            "curtainButton"
+        )
+        .closest(".control-card")
+        .classList.remove(
+            "active-device"
+        );
+
+
+    /* =====================
+       DOOR
+    ===================== */
+
+    doorUnlocked =
+        false;
+
+
+    document
+        .getElementById(
+            "doorStatus"
+        )
+        .innerText =
+        "LOCKED";
+
+
+    document
+        .getElementById(
+            "doorButton"
+        )
+        .innerText =
+        "UNLOCK";
+
+
+    document
+        .getElementById(
+            "doorButton"
+        )
+        .closest(".control-card")
+        .classList.remove(
+            "active-device"
+        );
+
+}
+
+</script>
+
+</body>
+</html>
